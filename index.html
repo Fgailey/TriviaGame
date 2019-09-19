@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Trivia Game</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    
+    <!-- js -->
+    <script type="text/javascript" src="./assets/javascript/app.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+</head>
+<body>
+    <div class="container justify-content-center">
+        <div id="header" class="row justify-content-center">
+            <div class="h1">Trivia Game</div>
+        </div>
+
+        <div class="row justify-content-center">
+            <button id="start">Start Game</button>
+        </div>
+
+        <div id="timer" class="row justify-content-center">
+            Time Remaining: <span id="countdown"></span>
+        </div>
+        
+        <div id="question" class="row justify-content-center">
+
+        </div>
+
+        <div id="answers" class="row justify-content-center">
+            <div class="col-auto">
+                <button id="a" class="row answer"></button>
+                <button id="b" class="row answer"></button>
+                <button id="c" class="row answer"></button>
+                <button id="d" class="row answer"></button>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
