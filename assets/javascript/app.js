@@ -9,6 +9,7 @@ const myQuestions = [
       },
              
       correctAnswer: "2007",
+      picture: "",
     },
     {
       question: "What’s the shortcut for the “copy” function on good computers?",
@@ -20,6 +21,7 @@ const myQuestions = [
       },
              
       correctAnswer: "ctrl c",
+      picture: "",
     },
     {
       question: "What does “HTTP” stand for?",
@@ -31,6 +33,7 @@ const myQuestions = [
       },
                    
       correctAnswer: "HyperText Transfer Protocol",
+      picture: "",
     },
     {
       question: "What is the name of the man who launched eBay back in 1995?",
@@ -42,6 +45,7 @@ const myQuestions = [
       },
                    
       correctAnswer: "Pierre Omidyar",
+      picture: "",
     },
     {
       question: "What is often seen as the smallest unit of memory?",
@@ -53,6 +57,7 @@ const myQuestions = [
       },
                    
       correctAnswer: "kilobyte",
+      picture: "",
     },
     {
       question: "Which email service is owned by Microsoft?",
@@ -64,6 +69,7 @@ const myQuestions = [
       },
                    
       correctAnswer: "Hotmail",
+      picture: "",
     },
     {
       question: "Google Chrome, Safari, Firefox and Explorer are different types of what?",
@@ -75,6 +81,7 @@ const myQuestions = [
       },
                    
       correctAnswer: "Web browsers",
+      picture: "",
     },
     {
       question: "Is Java a type of OS?",
@@ -86,6 +93,7 @@ const myQuestions = [
       },
                    
       correctAnswer: "No",
+      picture: "",
     },
     {
       question: "Who is often called the father of the computer?",
@@ -97,6 +105,7 @@ const myQuestions = [
       },
                    
       correctAnswer: "Charles Babbage",
+      picture: "",
     },
     {
       question: "What was Twitter’s original name?",
@@ -108,6 +117,7 @@ const myQuestions = [
       },
                    
       correctAnswer: "twttr",
+      picture: "",
     },
 ];
 
@@ -118,17 +128,34 @@ let timer = 30;
 
 var intervalId;
 
+var timeoutID;
+
+//clicks available after screen is loaded
 window.onload = function() {
     $("#start").on("click", startGame);
 
-    $(".answer").on("click", );
+    $(".answer").on("click", answerSelect);
   };
 
 function startGame(){
     //chooses random question
     var rn = Math.floor(Math.random() * numQuestions.length);
+    var tempQuest = myQuestions[numQuestions[rn]];
 
+    
     intervalId = setInterval(countdown, 1000);
+    
+    $("#question").html(tempQuest.question);
+    $("#a").html(tempQuest.answers.a);
+    $("#b").html(tempQuest.answers.b);
+    $("#c").html(tempQuest.answers.c);
+    $("#d").html(tempQuest.answers.d);
+    
+    $("#start").fadeOut();
+    
+    numQuestions.splice(rn, 1);
+
+    timeoutID = setTimeout(tempResult, 30 * 1000);
 };
 
 function countdown(){
@@ -137,8 +164,46 @@ function countdown(){
 };
 
 function answerSelect(){
+    clearTimeout(timeoutID);
+    clearInterval(intervalId);
+    timer = 30;
+    $("#answers").fadeOut();
 
+    if(this.attr("id") === tempQuest.correctAnswer){
+
+    }
+    
 };
+function contGame(){
+    $("#answers").fadeOut();
+    
+    var rn = Math.floor(Math.random() * numQuestions.length);
+    var tempQuest = myQuestions[numQuestions[rn]];
+
+    
+    intervalId = setInterval(countdown, 1000);
+    
+    $("#question").html(tempQuest.question);
+    $("#a").html(tempQuest.answers.a);
+    $("#b").html(tempQuest.answers.b);
+    $("#c").html(tempQuest.answers.c);
+    $("#d").html(tempQuest.answers.d);
+    
+    
+    numQuestions.splice(rn, 1);
+
+    timeoutID = setTimeout(tempResult, 30 * 1000);
+}
+
+//shows results page after time runs out or answer is clicked
+function tempResult(){
+
+    setTimeout(contGame, 6 * 1000);
+
+
+
+    
+}
 
 
 
