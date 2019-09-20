@@ -8,19 +8,19 @@ const myQuestions = [
           d:"2005",
       },
              
-      correctAnswer: "2007",
+      correctAnswer: "a",
       picture: "",
     },
     {
       question: "What’s the shortcut for the “copy” function on good computers?",
       answers: {
-          a:"ctrl c",
-          b:"ctrl v",
-          c:"alt f4",
+          a:"ctrl v",
+          b:"alt f4",
+          c:"ctrl c",
           d:"alt tab",
       },
              
-      correctAnswer: "ctrl c",
+      correctAnswer: "c",
       picture: "",
     },
     {
@@ -32,7 +32,7 @@ const myQuestions = [
           d:"Hey Talk To Pierre",
       },
                    
-      correctAnswer: "HyperText Transfer Protocol",
+      correctAnswer: "a",
       picture: "",
     },
     {
@@ -44,7 +44,7 @@ const myQuestions = [
           d:"Pierre Omidyar",
       },
                    
-      correctAnswer: "Pierre Omidyar",
+      correctAnswer: "d",
       picture: "",
     },
     {
@@ -56,7 +56,7 @@ const myQuestions = [
           d:"milabyte",
       },
                    
-      correctAnswer: "kilobyte",
+      correctAnswer: "b",
       picture: "",
     },
     {
@@ -68,7 +68,7 @@ const myQuestions = [
           d:"iMail",
       },
                    
-      correctAnswer: "Hotmail",
+      correctAnswer: "c",
       picture: "",
     },
     {
@@ -80,7 +80,7 @@ const myQuestions = [
           d:"Companies",
       },
                    
-      correctAnswer: "Web browsers",
+      correctAnswer: "b",
       picture: "",
     },
     {
@@ -92,7 +92,7 @@ const myQuestions = [
           d:"Yes",
       },
                    
-      correctAnswer: "No",
+      correctAnswer: "a",
       picture: "",
     },
     {
@@ -104,7 +104,7 @@ const myQuestions = [
           d:"Nikola Tesla",
       },
                    
-      correctAnswer: "Charles Babbage",
+      correctAnswer: "c",
       picture: "",
     },
     {
@@ -116,48 +116,80 @@ const myQuestions = [
           d:"mySpace",
       },
                    
-      correctAnswer: "twttr",
+      correctAnswer: "b",
       picture: "",
     },
 ];
 
 //let numQuestions = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"];
-let numQuestions = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+let numQuestions = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
+
+let right = 0;
+let wrong = 0;
 
 let timer = 30;
+let intervalId;
+let timeoutID;
 
-var intervalId;
+let tempQuest;
 
-var timeoutID;
 
 //clicks available after screen is loaded
-window.onload = function() {
-    $("#start").on("click", startGame);
+    $(document).ready(function(){
+        $("#start").on("click", startGame);
 
-    $(".answer").on("click", answerSelect);
-  };
+        $(".answer").on("click", answerSelect);
+    });
 
+
+//initiates game
 function startGame(){
-    //chooses random question
-    var rn = Math.floor(Math.random() * numQuestions.length);
-    var tempQuest = myQuestions[numQuestions[rn]];
+    if (numQuestions.length > 0 ){
+        $("#answers").fadeIn();
+        //chooses random question
+        var rn = Math.floor(Math.random() * numQuestions.length);
+        tempQuest = myQuestions[numQuestions[rn]];
 
-    
-    intervalId = setInterval(countdown, 1000);
-    
-    $("#question").html(tempQuest.question);
-    $("#a").html(tempQuest.answers.a);
-    $("#b").html(tempQuest.answers.b);
-    $("#c").html(tempQuest.answers.c);
-    $("#d").html(tempQuest.answers.d);
-    
-    $("#start").fadeOut();
-    
-    numQuestions.splice(rn, 1);
+        
+        intervalId = setInterval(countdown, 1000);
+        
+        $("#question").html(tempQuest.question);
+        $("#a").html(tempQuest.answers.a);
+        $("#b").html(tempQuest.answers.b);
+        $("#c").html(tempQuest.answers.c);
+        $("#d").html(tempQuest.answers.d);
+        
+        $("#start").fadeOut();
+        
+        numQuestions.splice(rn, 1);
 
-    timeoutID = setTimeout(tempResult, 30 * 1000);
+        timeoutID = setTimeout(tempResult, 30 * 1000);
+    }
 };
+//keeps game going
+function contGame(){
+    if (numQuestions.length > 0 ){
+        $("#result").fadeOut();
+        var n = Math.floor(Math.random() * numQuestions.length);
+        tempQuest = myQuestions[numQuestions[n]];
 
+        
+        intervalId = setInterval(countdown, 1000);
+        
+        $("#question").html(tempQuest.question);
+        $("#a").html(tempQuest.answers.a);
+        $("#b").html(tempQuest.answers.b);
+        $("#c").html(tempQuest.answers.c);
+        $("#d").html(tempQuest.answers.d);
+        
+        
+        $("#answers").fadeIn();
+        numQuestions.splice(n, 1);
+
+        timeoutID = setTimeout(tempResult, 30 * 1000);
+    }
+}
+//countdown time
 function countdown(){
     $("#countdown").html(timer);
     timer --;
@@ -169,40 +201,31 @@ function answerSelect(){
     timer = 30;
     $("#answers").fadeOut();
 
-    if(this.attr("id") === tempQuest.correctAnswer){
-
+    let tempID = $(this).attr('id')
+    console.log(right)
+    console.log(tempQuest)
+    if(tempID === tempQuest.correctAnswer){
+        right++;
+        $("#rightWrong").html("You are Correct!!");
+        $("#questPic").attr('src', $(this).picture)
+        tempResult();
+        //debugger;
     }
-    
+    else {
+        wrong ++;
+        $("#rightWrong").html("Wrong!! the correct answer is " + tempQuest.correctAnswer);
+        $("#questPic").attr('src', $(this).picture)
+        tempResult();
+    }
 };
-function contGame(){
-    $("#answers").fadeOut();
-    
-    var rn = Math.floor(Math.random() * numQuestions.length);
-    var tempQuest = myQuestions[numQuestions[rn]];
 
-    
-    intervalId = setInterval(countdown, 1000);
-    
-    $("#question").html(tempQuest.question);
-    $("#a").html(tempQuest.answers.a);
-    $("#b").html(tempQuest.answers.b);
-    $("#c").html(tempQuest.answers.c);
-    $("#d").html(tempQuest.answers.d);
-    
-    
-    numQuestions.splice(rn, 1);
-
-    timeoutID = setTimeout(tempResult, 30 * 1000);
-}
 
 //shows results page after time runs out or answer is clicked
 function tempResult(){
+    $("#answers").fadeOut();
+    $("#result").fadeIn();
+    setTimeout(contGame, 1 * 1000);
 
-    setTimeout(contGame, 6 * 1000);
-
-
-
-    
 }
 
 
