@@ -202,8 +202,7 @@ function answerSelect(){
     $("#answers").fadeOut();
 
     let tempID = $(this).attr('id')
-    console.log(right)
-    console.log(tempQuest)
+    
     if(tempID === tempQuest.correctAnswer){
         right++;
         $("#rightWrong").html("You are Correct!!");
@@ -224,7 +223,7 @@ function answerSelect(){
 function tempResult(){
     $("#answers").fadeOut();
     $("#result").fadeIn();
-    setTimeout(contGame, 1 * 1000);
+    setTimeout(contGame, 5 * 1000);
 
 }
 
