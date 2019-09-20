@@ -132,6 +132,10 @@ let intervalId;
 let timeoutID;
 
 let tempQuest;
+let tempID;
+
+//stops the game after 10 questions
+let asked = 0;
 
 
 //clicks available after screen is loaded
@@ -189,6 +193,16 @@ function contGame(){
         timeoutID = setTimeout(tempResult, 30 * 1000);
     }
 }
+function endGame(){
+    $("#rightWrong").html(`Total Correct: ${right}`)
+    let divResult = $("<p>")
+    divResult.html(`Total Wrong: ${wrong}`);
+    $("#rightWrong").append(divResult)
+    let divPercent = $("<p>")
+    divPercent.html(`Final: ${(right/myQuestions.length)*100}%`);
+    $("#rightWrong").append(divPercent)
+}
+
 //countdown time
 function countdown(){
     $("#countdown").html(timer);
@@ -196,35 +210,52 @@ function countdown(){
 };
 
 function answerSelect(){
-    clearTimeout(timeoutID);
-    clearInterval(intervalId);
-    timer = 30;
+    
     $("#answers").fadeOut();
 
-    let tempID = $(this).attr('id')
-    
-    if(tempID === tempQuest.correctAnswer){
+    tempID = $(this).attr('id')
+
+    tempResult();  
+};
+
+
+//shows results page after time runs out or answer is clicked
+function tempResult(){
+
+    $("#answers").fadeOut();
+    //if time runs out its wrong, else if the answer is right
+    if(timer <= 0){
+        wrong++;
+        $("#rightWrong").html("Out of time!! the correct answer is " + tempQuest.correctAnswer);
+        $("#questPic").attr('src', $(this).picture)
+    }
+    else if(tempID === tempQuest.correctAnswer){
         right++;
         $("#rightWrong").html("You are Correct!!");
         $("#questPic").attr('src', $(this).picture)
-        tempResult();
+        
         //debugger;
     }
     else {
         wrong ++;
         $("#rightWrong").html("Wrong!! the correct answer is " + tempQuest.correctAnswer);
         $("#questPic").attr('src', $(this).picture)
-        tempResult();
+        
     }
-};
 
-
-//shows results page after time runs out or answer is clicked
-function tempResult(){
-    $("#answers").fadeOut();
     $("#result").fadeIn();
-    setTimeout(contGame, 5 * 1000);
-
+    
+    asked++
+    if (asked === 10){
+        setTimeout(endGame, 5 * 1000)
+    }
+    else {
+        setTimeout(contGame, 1 * 1000);
+        console.log(right, wrong )
+        clearTimeout(timeoutID);
+        clearInterval(intervalId);
+        timer = 30;
+    }
 }
 
 
