@@ -49,6 +49,10 @@ body {
     text-align: center;    
 }
 
+#questPic {
+    width: 400px;
+}
+
 
 
 #answers {

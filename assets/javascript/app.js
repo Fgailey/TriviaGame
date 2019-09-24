@@ -9,7 +9,7 @@ const myQuestions = [
       },
              
       correctAnswer: "a",
-      picture: "",
+      picture: "../assets/images/iphone.jpg",
     },
     {
       question: "What’s the shortcut for the “copy” function on good computers?",
@@ -21,7 +21,7 @@ const myQuestions = [
       },
              
       correctAnswer: "c",
-      picture: "",
+      picture: "../assets/images/ctrlC.jpg",
     },
     {
       question: "What does “HTTP” stand for?",
@@ -33,7 +33,7 @@ const myQuestions = [
       },
                    
       correctAnswer: "a",
-      picture: "",
+      picture: "../assets/images/http.jpg",
     },
     {
       question: "What is the name of the man who launched eBay back in 1995?",
@@ -45,7 +45,7 @@ const myQuestions = [
       },
                    
       correctAnswer: "d",
-      picture: "",
+      picture: "../assets/images/ebay.jpg",
     },
     {
       question: "What is often seen as the smallest unit of memory?",
@@ -57,7 +57,7 @@ const myQuestions = [
       },
                    
       correctAnswer: "b",
-      picture: "",
+      picture: "../assets/images/kilobyte.jpg",
     },
     {
       question: "Which email service is owned by Microsoft?",
@@ -69,7 +69,7 @@ const myQuestions = [
       },
                    
       correctAnswer: "c",
-      picture: "",
+      picture: "../assets/images/hotmail.jpg",
     },
     {
       question: "Google Chrome, Safari, Firefox and Explorer are different types of what?",
@@ -81,7 +81,7 @@ const myQuestions = [
       },
                    
       correctAnswer: "b",
-      picture: "",
+      picture: "../assets/images/webBrowsers.jpg",
     },
     {
       question: "Is Java a type of OS?",
@@ -93,7 +93,7 @@ const myQuestions = [
       },
                    
       correctAnswer: "a",
-      picture: "",
+      picture: "../assets/images/java.jpg",
     },
     {
       question: "Who is often called the father of the computer?",
@@ -105,7 +105,7 @@ const myQuestions = [
       },
                    
       correctAnswer: "c",
-      picture: "",
+      picture: "../assets/images/babbage.jpg",
     },
     {
       question: "What was Twitter’s original name?",
@@ -117,7 +117,7 @@ const myQuestions = [
       },
                    
       correctAnswer: "b",
-      picture: "",
+      picture: "../assets/images/twitter.png",
     },
 ];
 
@@ -133,6 +133,7 @@ let timeoutID;
 
 let tempQuest;
 let tempID;
+let tempPic;
 
 //stops the game after 10 questions
 let asked = 0;
@@ -193,15 +194,6 @@ function contGame(){
         timeoutID = setTimeout(tempResult, 30 * 1000);
     }
 }
-function endGame(){
-    $("#rightWrong").html(`Total Correct: ${right}`)
-    let divResult = $("<p>")
-    divResult.html(`Total Wrong: ${wrong}`);
-    $("#rightWrong").append(divResult)
-    let divPercent = $("<p>")
-    divPercent.html(`Final: ${(right/myQuestions.length)*100}%`);
-    $("#rightWrong").append(divPercent)
-}
 
 //countdown time
 function countdown(){
@@ -209,11 +201,29 @@ function countdown(){
     timer --;
 };
 
+function endGame(){
+    //$("#rightWrong").html(`Total Correct: ${right}`)
+
+    let divRight = $("<div>")
+    divRight.html(`Total Correct: ${right}`);
+    $("#rightWrong").parent().append(divRight)
+
+    let divWrong = $("<div>")
+    divWrong.html(`Total Wrong: ${wrong}`);
+    $("#rightWrong").parent().append(divWrong)
+
+    let divPercent = $("<div>")
+    divPercent.html(`Final: ${(right/myQuestions.length)*100}%`);
+    $("#rightWrong").parent().append(divPercent)
+
+    clearInterval(intervalId);
+}
 function answerSelect(){
     
     $("#answers").fadeOut();
 
     tempID = $(this).attr('id')
+    tempPic = tempQuest.picture
 
     tempResult();  
 };
@@ -223,23 +233,24 @@ function answerSelect(){
 function tempResult(){
 
     $("#answers").fadeOut();
+
     //if time runs out its wrong, else if the answer is right
     if(timer <= 0){
         wrong++;
         $("#rightWrong").html("Out of time!! the correct answer is " + tempQuest.correctAnswer);
-        $("#questPic").attr('src', $(this).picture)
+        $("#questPic").attr('src', tempPic)
     }
     else if(tempID === tempQuest.correctAnswer){
         right++;
         $("#rightWrong").html("You are Correct!!");
-        $("#questPic").attr('src', $(this).picture)
+        $("#questPic").attr('src', tempPic)
         
         //debugger;
     }
     else {
         wrong ++;
         $("#rightWrong").html("Wrong!! the correct answer is " + tempQuest.correctAnswer);
-        $("#questPic").attr('src', $(this).picture)
+        $("#questPic").attr('src', tempPic)
         
     }
 
@@ -250,7 +261,7 @@ function tempResult(){
         setTimeout(endGame, 5 * 1000)
     }
     else {
-        setTimeout(contGame, 1 * 1000);
+        setTimeout(contGame, 3 * 1000);
         console.log(right, wrong )
         clearTimeout(timeoutID);
         clearInterval(intervalId);
