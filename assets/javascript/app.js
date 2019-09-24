@@ -265,7 +265,7 @@ function tempResult(){
         setTimeout(endGame, 4 * 1000)
     }
     else {
-        setTimeout(contGame, 1 * 100);
+        setTimeout(contGame, 3 * 1000);
         console.log(right, wrong )
         clearTimeout(timeoutID);
         clearInterval(intervalId);
