@@ -134,6 +134,8 @@ let timeoutID;
 let tempQuest;
 let tempID;
 let tempPic;
+let tempAnswer;
+let tempWord;
 
 //stops the game after 10 questions
 let asked = 0;
@@ -216,14 +218,16 @@ function endGame(){
     divPercent.html(`Final: ${(right/myQuestions.length)*100}%`);
     $("#rightWrong").parent().append(divPercent)
 
+    $("#rightWrong").hide();
+    $("#questPic").hide();
     clearInterval(intervalId);
 }
 function answerSelect(){
     
     $("#answers").fadeOut();
 
-    tempID = $(this).attr('id')
-    tempPic = tempQuest.picture
+    tempID = $(this).attr('id');
+    tempPic = tempQuest.picture;
 
     tempResult();  
 };
@@ -258,10 +262,10 @@ function tempResult(){
     
     asked++
     if (asked === 10){
-        setTimeout(endGame, 5 * 1000)
+        setTimeout(endGame, 4 * 1000)
     }
     else {
-        setTimeout(contGame, 3 * 1000);
+        setTimeout(contGame, 1 * 100);
         console.log(right, wrong )
         clearTimeout(timeoutID);
         clearInterval(intervalId);
