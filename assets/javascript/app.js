@@ -126,8 +126,9 @@ let numQuestions = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
 
 let right = 0;
 let wrong = 0;
+let unanswered = 0;
 
-let timer = 30;
+let timer = 15;
 let intervalId;
 let timeoutID;
 
@@ -170,9 +171,41 @@ function startGame(){
         
         numQuestions.splice(rn, 1);
 
-        timeoutID = setTimeout(tempResult, 30 * 1000);
+        timeoutID = setTimeout(tempResult, 15 * 1000);
+    }
+    //reset
+    else {
+        $(".goAway").hide()
+        numQuestions = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
+
+        right = 0;
+        wrong = 0;
+        unanswered = 0;
+
+
+        $("#answers").fadeIn();
+        //chooses random question
+        var rn = Math.floor(Math.random() * numQuestions.length);
+        tempQuest = myQuestions[numQuestions[rn]];
+
+        
+        intervalId = setInterval(countdown, 1000);
+        
+        $("#question").html(tempQuest.question);
+        $("#a").html(tempQuest.answers.a);
+        $("#b").html(tempQuest.answers.b);
+        $("#c").html(tempQuest.answers.c);
+        $("#d").html(tempQuest.answers.d);
+        
+        $("#start").fadeOut();
+        
+        numQuestions.splice(rn, 1);
+
+        timeoutID = setTimeout(tempResult, 15 * 1000);
+        
     }
 };
+
 //keeps game going
 function contGame(){
     if (numQuestions.length > 0 ){
@@ -193,7 +226,7 @@ function contGame(){
         $("#answers").fadeIn();
         numQuestions.splice(n, 1);
 
-        timeoutID = setTimeout(tempResult, 30 * 1000);
+        timeoutID = setTimeout(tempResult, 15 * 1000);
     }
 }
 
@@ -206,21 +239,32 @@ function countdown(){
 function endGame(){
     //$("#rightWrong").html(`Total Correct: ${right}`)
 
-    let divRight = $("<div>")
+    let divRight = $("<div>");
     divRight.html(`Total Correct: ${right}`);
-    $("#rightWrong").parent().append(divRight)
-
-    let divWrong = $("<div>")
+    divRight.addClass("goAway")
+    $("#rightWrong").parent().append(divRight);
+    
+    let divWrong = $("<div>");
     divWrong.html(`Total Wrong: ${wrong}`);
-    $("#rightWrong").parent().append(divWrong)
-
-    let divPercent = $("<div>")
+    divWrong.addClass("goAway")
+    $("#rightWrong").parent().append(divWrong);
+    
+    let divNo = $("<div>");
+    divNo.html(`Total Unanswered: ${unanswered}`);
+    divNo.addClass("goAway")
+    $("#rightWrong").parent().append(divNo);
+    
+    let divPercent = $("<div>");
     divPercent.html(`Final: ${(right/myQuestions.length)*100}%`);
-    $("#rightWrong").parent().append(divPercent)
+    divPercent.addClass("goAway")
+    $("#rightWrong").parent().append(divPercent);
 
     $("#rightWrong").hide();
     $("#questPic").hide();
+    $("#start").fadeIn();
     clearInterval(intervalId);
+
+    $("#start").html("Restart");
 }
 function answerSelect(){
     
@@ -240,7 +284,7 @@ function tempResult(){
 
     //if time runs out its wrong, else if the answer is right
     if(timer <= 0){
-        wrong++;
+        unanswered++;
         $("#rightWrong").html("Out of time!! the correct answer is " + tempQuest.correctAnswer);
         $("#questPic").attr('src', tempPic)
     }
@@ -265,11 +309,11 @@ function tempResult(){
         setTimeout(endGame, 4 * 1000)
     }
     else {
-        setTimeout(contGame, 3 * 1000);
-        console.log(right, wrong )
+        setTimeout(contGame, 1 * 1000);
+        console.log(right, wrong, unanswered )
         clearTimeout(timeoutID);
         clearInterval(intervalId);
-        timer = 30;
+        timer = 15;
     }
 }
 
