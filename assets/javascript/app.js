@@ -9,7 +9,7 @@ const myQuestions = [
       },
              
       correctAnswer: "a",
-      picture: "../assets/images/iphone.jpg",
+      picture: "./assets/images/iphone.jpg",
     },
     {
       question: "What’s the shortcut for the “copy” function on good computers?",
@@ -21,7 +21,7 @@ const myQuestions = [
       },
              
       correctAnswer: "c",
-      picture: "../assets/images/ctrlC.jpg",
+      picture: "./assets/images/ctrlC.jpg",
     },
     {
       question: "What does “HTTP” stand for?",
@@ -33,7 +33,7 @@ const myQuestions = [
       },
                    
       correctAnswer: "a",
-      picture: "../assets/images/http.jpg",
+      picture: "./assets/images/http.jpg",
     },
     {
       question: "What is the name of the man who launched eBay back in 1995?",
@@ -45,7 +45,7 @@ const myQuestions = [
       },
                    
       correctAnswer: "d",
-      picture: "../assets/images/ebay.jpg",
+      picture: "./assets/images/ebay.jpg",
     },
     {
       question: "What is often seen as the smallest unit of memory?",
@@ -57,7 +57,7 @@ const myQuestions = [
       },
                    
       correctAnswer: "b",
-      picture: "../assets/images/kilobyte.jpg",
+      picture: "./assets/images/kilobyte.jpg",
     },
     {
       question: "Which email service is owned by Microsoft?",
@@ -69,7 +69,7 @@ const myQuestions = [
       },
                    
       correctAnswer: "c",
-      picture: "../assets/images/hotmail.jpg",
+      picture: "./assets/images/hotmail.jpg",
     },
     {
       question: "Google Chrome, Safari, Firefox and Explorer are different types of what?",
@@ -81,7 +81,7 @@ const myQuestions = [
       },
                    
       correctAnswer: "b",
-      picture: "../assets/images/webBrowsers.jpg",
+      picture: "./assets/images/webBrowsers.jpg",
     },
     {
       question: "Is Java a type of OS?",
@@ -93,7 +93,7 @@ const myQuestions = [
       },
                    
       correctAnswer: "a",
-      picture: "../assets/images/java.jpg",
+      picture: "./assets/images/java.jpg",
     },
     {
       question: "Who is often called the father of the computer?",
@@ -105,7 +105,7 @@ const myQuestions = [
       },
                    
       correctAnswer: "c",
-      picture: "../assets/images/babbage.jpg",
+      picture: "./assets/images/babbage.jpg",
     },
     {
       question: "What was Twitter’s original name?",
@@ -117,7 +117,7 @@ const myQuestions = [
       },
                    
       correctAnswer: "b",
-      picture: "../assets/images/twitter.png",
+      picture: "./assets/images/twitter.png",
     },
 ];
 
